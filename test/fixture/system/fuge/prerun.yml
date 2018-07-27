@@ -1,0 +1,14 @@
+prerun:
+  type: process
+  path: ../prerun
+  prerun: node prerunbuild.js
+  run: node prerun.js
+  ports:
+    - main=8002
+prerunfail:
+  type: process
+  path: ../prerun
+  prerun: xxxxxxxxxxxxxx
+  run: node prerun.js
+  ports:
+    - main=8002
