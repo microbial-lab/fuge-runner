@@ -217,8 +217,8 @@ test('prerun test 2 (failure test)', function (t) {
 
   config.load(path.join(__dirname, 'fixture', 'system', 'fuge', 'prerun.yml'), function (err, system) {
     t.equal(err, null)
+
     runner.start(system, 'live', system.topology.containers.prerunfail, exitCb, function (err, child) {
-      console.log('ERRRRRRRRRRRRR = ' + err)
       t.notEqual(null, err)
       t.equal(undefined, child)
     })
