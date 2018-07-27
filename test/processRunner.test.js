@@ -193,3 +193,34 @@ test('process kill test', function (t) {
   })
 })
 
+
+test('prerun test 1', function (t) {
+  t.plan(4)
+
+  config.load(path.join(__dirname, 'fixture', 'system', 'fuge', 'prerun.yml'), function (err, system) {
+    t.equal(err, null)
+    runner.start(system, 'live', system.topology.containers.prerun, exitCb, function (err, child) {
+      t.equal(null, err)
+      t.notEqual(undefined, child.pid)
+
+      setTimeout(function () {
+        runner.stop(system.topology.containers.prerun, child.pid, function (err) {
+          t.equal(null, err)
+        })
+      }, 100)
+    })
+  })
+})
+
+test('prerun test 2 (failure test)', function (t) {
+  t.plan(3)
+
+  config.load(path.join(__dirname, 'fixture', 'system', 'fuge', 'prerun.yml'), function (err, system) {
+    t.equal(err, null)
+    runner.start(system, 'live', system.topology.containers.prerunfail, exitCb, function (err, child) {
+      console.log('ERRRRRRRRRRRRR = ' + err)
+      t.notEqual(null, err)
+      t.equal(undefined, child)
+    })
+  })
+})
